@@ -1,0 +1,16 @@
+application: hack-iitr
+version: 1
+runtime: php
+api_version: 1
+threadsafe: yes
+
+handlers:
+- url: /favicon\.ico
+  static_files: favicon.ico
+  upload: favicon\.ico
+
+- url: /css
+  static_dir: css
+  
+- url: .*
+  script: main.php
