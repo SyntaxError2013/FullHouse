@@ -1,12 +1,12 @@
 <?php
 	
-	//require_once "includes/lib/Unirest.php";
+	require_once "lib/Unirest.php";
 	include "tqo.php";
-	include "includes/config.php";
+	include "config.php";
 	
-	$search_name = $_GET['query'];
-	if( $search_name == NULL ) header('location: index.php');
-
+	//$search_name = $_GET['query'];
+	//if( $search_name == NULL ) header('location: index.php');
+	$search_name = "Sushma Swaraj";
     $search_name = trim($search_name);         //removing unneccesary whitespaces
     $tokens = explode(" ", $search_name);      //break the body into tokens
 	
@@ -24,27 +24,49 @@
 	//$x = json_decode($results1,true);                                                                //decoding the result of the query
 	$required_id = $results1[0]->{'screen_name'};
     //$required_id = $x[0]['screen_name'];                                              //required cid for giving the response
-	$required_name = $results1[0]->{'name'};
-	$_SESSION['name'] = $required_name;
+	
     $_SESSION['screen_name'] = $required_id;
     $results2 = $twitter->get('https://api.twitter.com/1.1/search/tweets.json?q=%23'.$required_id.'&result_type=mixed&count=5');
-    
+    var_dump($results2);
+	exit;
 	$y = $results2->{'statuses'};
-	
+	var_dump($y);
+	exit;
+	//$y = json_decode($results2,true);
+    
+	//$yy = $y['statuses'];
     $yyy = array();
     foreach($y as $row1)
             {
                     $yyy[] = $row1->{'text'};
             }    
 			                           
-	//$response = array();
+	$response = array();
+        //$response_output = array();
+        foreach($yyy as $key => $value)
+            {
+                    $output = Unirest::post(
+                            "https://japerk-text-processing.p.mashape.com/sentiment/",
+                            array(
+                                        "X-Mashape-Authorization" => "nxI9toagr6TJO9gGBEWTyD66YloVuOp4"
+                            ),
+                            array(
+                                        "text" => $yyy[$key],
+                                        "language" => "english"
+                            )
+                    );
+                    //$dummy_output = json_decode($output,true);
+					//var_dump($output);
+					//$response[$key] = $output->{'label'};
+					//var_dump($response[$key]);
+                    //$response[$key] = $dummy_output['label'];
+            }        
+
     foreach ($yyy as $key => $value) {
                     unset ($yyy[$key]);
-                    $new_key =  "text".$key;
+                    $new_key =  "text$key";
                     $yyy[$new_key] = $value;
-    }
-	//var_dump($yyy); 
-	//exit;
+    } 
     $url3 = "http://api.repustate.com/v2/d68427d7e77b4d38f6c789083092afdeb3996850/bulk-score.json";
     /*$demo = array(
         "text1" => "I am feeling good",
@@ -54,15 +76,10 @@
     curl_setopt ($ch, CURLOPT_POST, true);
     curl_setopt ($ch, CURLOPT_POSTFIELDS, $yyy);
     curl_setopt ($ch, CURLOPT_RETURNTRANSFER, true);
-    $results3 = curl_exec($ch);
-    //var_dump($results3);
-	$results4 = json_decode($results3,true);
-    //var_dump($results4);
-	//exit;
-	$analysis_array = $results4["results"];
+    $results3 = curl_exec ($ch);
+    $results4 = json_decode($results3,true);
+    $analysis_array = $results4["results"];
     $results5 = array();
-	//var_dump($results5);
-	//exit;
     foreach($analysis_array as $key2 => $value2){
             $results5[$key2] = $value2["score"];
     }
@@ -81,7 +98,7 @@
             //var_dump($sum_positive);
         }
         else{
-            $sum_neutral =  $sum_neutral + 0.05;
+            $sum_neutral =  $count + 0.05;
             //var_dump($sum_neutral);
         }
     

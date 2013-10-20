@@ -8,11 +8,11 @@
     		
     <div class="header_content">
     	<div class="logo">
-                	<img src="images/logo.png" width="150px" height="150px" style="margin-top:15px;" />
+                	<img src="images/leader.jpg" width="150px" height="150px" style="margin-top:15px;" />
          </div>
                 
          <div class="title">
-         	<h1>Hackathon App</h1>
+         	<h1>Know Your Leader</h1>
          </div>
      </div>
         
