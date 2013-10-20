@@ -1,4 +1,253 @@
 body {
-  font-family: Verdana, Helvetica, sans-serif;
-  background-color: #DDDDDD;
+	margin: 0px;
+	padding: 0px;
+	font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+	font-size: 16px;
+}
+ 
+a {
+	text-decoration: none;
+}
+
+ul {
+	margin: 0px;
+	padding: 0px;
+	list-style: none;	
+}
+li {
+	text-decoration: none;
+	list-style: none;
+	margin: 0px;
+	padding: 0px;
+}
+
+h1 {
+	margin: 0px;
+	padding: 0px;	
+	font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+	letter-spacing: -3px;
+}
+
+h3 {
+	letter-spacing: -1px;
+}
+
+.header {
+	width: 100%;
+	height: 150px;
+	margin: 0px;
+	padding: 0px;
+	overflow: visible;
+	z-index: 10px;
+	font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+}
+
+.header .header_top {
+	width: 100%;
+	background-color: #efefef;
+	height: 35px;
+}
+
+.header_top .social {
+	margin: 0px auto;
+	height: 35px;
+	width: 960px;
+	text-align: right;
+}
+
+.header .header_content {
+	margin: 0px auto;
+	padding-top: 20px;
+	width: 960px;
+	height: 100px;
+	overflow: visible;
+}
+
+.header_content .logo {
+	width: 150px;
+	height: 150px;
+	overflow: visible;
+	float: left;
+}
+
+.header_content .title {
+	width: 800px;
+	height: 90px;
+	overflow: visible;
+	float: right;
+	margin-top: 10px
+}
+
+.header_content .title h3 {	
+	padding: 0px;
+	margin-top: -15px;
+}
+
+.body {
+	background-color: #4dbcc9;
+	width: 100%;
+	height: 435px;
+	
+}
+
+.body .clear {
+	margin: 0px auto;
+	width: 960px;
+	height: 10px;
+	clear: both;
+}
+
+.body .body_content {
+	width: 960px;
+	height: 400px;
+	margin:0px auto;
+}
+
+.body_content .intro {
+	margin: 20px;
+	width: 400px;
+	height: 250px;
+	background-color: #000;
+  	border: 10px solid #5fc3cf;
+	box-shadow: 2px 2px 2px #000;
+	float: left;
+}
+
+.input-self {
+	width: 250px;
+	height: 40px;
+	border: none;
+	padding: 2px;
+	size: 20px;
+}
+
+#form-place {
+	margin: 10px;
+	height: 100px;
+	width: 300px;	
+}
+
+#sub {
+	width: 100px;
+	height: 30px;
+}
+
+#form-app {
+		width: 600px;
+		height: 100px;	
+}
+
+#app-input {
+	height: 20px;
+	padding: 2px;
+}
+
+#chart_div {
+	overflow: hidden;	
+	margin-top: 10px;
+}
+
+
+.body_content .buttons {
+	width: 600px;
+	height: 180px;
+	float: left;
+	margin: 20px;
+	margin-left: 180px;
+	text-align: center;
+	margin-top: 60px;
+}
+
+.footer {
+	width: 100%;
+	background-color: #dfdfdf;
+	height: 75px;
+	padding-top: 5px;
+}
+.footer .footer_content {
+	margin: 0px auto;
+	width: 960px;
+}
+.footer_content .copyright {
+	font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+	float: left;
+}
+.footer_content .team {
+	float: right;
+	font-size: 14px;
+}
+
+.footer_content .team li {
+	text-decoration: none;
+	list-style: none;
+	margin: 0px;
+	padding: 0px;
+	line-height: 16px;
+}
+.footer_content .survey {
+	float: right;
+	font-size: 13px;
+	margin-top: 15px;
+}
+.intro .intro_talk {
+	color: #fff;
+	padding: 10px;
+	font-size: 18px;
+	font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+	line-height: 32px;
+	text-align: center;
+	letter-spacing: 1px;
+	margin-top: 8px;
+}
+
+.but {
+	background-color: #ffd62e;
+	width: 200px;
+	height: 30px;
+	-webkit-border-image: 5px;
+	border-radius: 5px;	
+	border: 1px solid #000;
+}
+
+/*********  css for stakeholders page  ************/
+a{
+	text-decoration: none;	
+}
+
+.body_content .head {
+	width: auto;
+	height: 30px;
+	font-size: 24px;
+	text-align: left;
+	color: #fff;
+	margin-left: 350px;
+}
+.body_content .stakeholder {
+	width: 150px;
+	height: 200px;
+	display: inline;
+	list-style: none;
+}
+.body_content .stakeholder li {
+	display: inline;
+	margin-right: 50px;
+	font-size: 16px;
+}
+
+.stakeholder .or {
+	font-size: 18px;
+	color: #fff;
+}
+
+/******** end css for stakeholders page  ******************/
+
+.body_content .details {
+	width: 200px;
+	float: left;
+}
+
+.body_content .personal.details {
+	float: right;
+	width: 500px;
+	height: auto;
 }

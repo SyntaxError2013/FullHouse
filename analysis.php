@@ -1,66 +1,70 @@
 <?php session_start(); ?>
+<?php error_reporting(0) ?>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>Hack-App</title>
+    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+	<link rel="stylesheet" type="text/css" href="css/style.css" />
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.css" />
+    
+</head>
+<body>
+    <?php include "includes/header.php" ?>
+    
+	<?php include "includes/backend.php" ?>
+    
+    <script type="text/javascript">
+		var sum_negative = <?php echo $sum_negative; ?>;
+		sum_negative = parseFloat(sum_negative);
+		
+		var sum_positive = <?php echo $sum_positive; ?>;
+		sum_positive = parseFloat(sum_positive);
+		
+		var sum_neutral = <?php echo $sum_neutral; ?>;
+      	sum_neutral = parseFloat(sum_neutral);
+      	
+		// Load the Visualization API and the piechart package.
+      	google.load('visualization', '1.0', {'packages':['corechart']});
 
-<?php
-	
-	require_once "includes/lib/Unirest.php";
-	include "tqo.php";
-	include "includes/config.php";
-	
-	$search_name = $_GET['query'];
-	if( $search_name == NULL ) header('location: index.php');
+      	// Set a callback to run when the Google Visualization API is loaded.
+      	google.setOnLoadCallback(drawChart);
 
-    $search_name = trim($search_name);         //removing unneccesary whitespaces
-    $tokens = explode(" ", $search_name);      //break the body into tokens
+      	// Callback that creates and populates a data table,
+      	// instantiates the pie chart, passes in the data and
+      	// draws it.
+      	
+		function drawChart() {
+
+        	// Create the data table.
+        	var data = new google.visualization.DataTable();
+        	data.addColumn('string', 'Opinion');
+        	data.addColumn('number', 'value');
+        	data.addRows([
+          		['Favour', sum_positive],
+          		['DisFavour', sum_negative],
+          		['Neutral', sum_neutral]
+        	]);
+
+        	// Set chart options
+        	var options = {'title':'How People Rate',
+                       'width':400,
+                       'height':300};
+
+        	// Instantiate and draw our chart, passing in some options.
+        	var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
+       	 	chart.draw(data, options);
+      	}
+    </script>    
 	
-    foreach($tokens as $row) {
-		if($toadd == ""){
-			$toadd = $toadd.$row;
-		}
-        else {
-			$toadd = $toadd."%20$row";
-        }
-    }
+    <div class="body">
+    	<div class="clear"></div>
+    	<div class="body_content">
+        	<div id="chart_div" style="width:400; height:300"></div>
+            
+        </div>
+    </div>
     
-    $results1 = $twitter->get('https://api.twitter.com/1.1/users/search.json?q="'.$toadd.'"&page=1&count=1');  
-	
-	//$x = json_decode($results1,true);                                                                //decoding the result of the query
-	$required_id = $results1[0]->{'screen_name'};
-    //$required_id = $x[0]['screen_name'];                                              //required cid for giving the response
-	
-    $_SESSION['screen_name'] = $required_id;
-    $results2 = $twitter->get('https://api.twitter.com/1.1/search/tweets.json?q=%23'.$required_id.'&result_type=mixed&count=4');
-    
-	$y = $results2->{'statuses'};
-	
-	//$y = json_decode($results2,true);
-    
-	//$yy = $y['statuses'];
-    $yyy = array();
-    foreach($y as $row1)
-            {
-                    $yyy[] = $row1->{'text'};
-            }    
-			                           
-	$response = array();
-        //$response_output = array();
-        foreach($yyy as $key => $value)
-            {
-                    $output = Unirest::post(
-                            "https://japerk-text-processing.p.mashape.com/sentiment/",
-                            array(
-                                        "X-Mashape-Authorization" => "nxI9toagr6TJO9gGBEWTyD66YloVuOp4"
-                            ),
-                            array(
-                                        "text" => $yyy[$key],
-                                        "language" => "english"
-                            )
-                    );
-                    //$dummy_output = json_decode($output,true);
-					var_dump($output);
-					//$response[$key] = $output->{'label'};
-					//var_dump($response[$key]);
-                    //$response[$key] = $dummy_output['label'];
-            }        
-			exit;
-    $analysis_array = array_count_values($response);		
-?>
+    <?php include "includes/footer.php" ?>
+</body>
+</html>
